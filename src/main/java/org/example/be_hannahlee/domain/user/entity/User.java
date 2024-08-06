@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
 @Table(name = "tbl_user")
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
@@ -21,6 +19,12 @@ public class User {
     String accountId;
 
     String password;
+
+    @Builder
+    User(String accountId, String password) {
+        this.accountId = accountId;
+        this.password = password;
+    }
 
 }
 

@@ -16,11 +16,16 @@ public class UserSignupService {
 
     @Transactional
     public void signup(UserSignupRequest request) {
-            userRepository.save(
-                    User.builder()
-                            .accountId(request.getAccountId())
-                            .password(encoder.encode(request.getPassword()))
-                            .build()
-            );
+        if(!userRepository.existsByAccountId(request.getAccountId())) {
+            User user = User.builder()
+                    .accountId(request.getAccountId())
+                    .password(encoder.encode(request.getPassword()))
+                    .build();
+
+            userRepository.save(user);
+        }
+//        else {
+//            //CustomException
+//        }
     }
 }
